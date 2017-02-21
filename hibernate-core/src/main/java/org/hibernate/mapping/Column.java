@@ -28,6 +28,9 @@ public class Column implements Selectable, Serializable, Cloneable {
 	public static final int DEFAULT_PRECISION = 19;
 	public static final int DEFAULT_SCALE = 2;
 
+	private boolean isScaleSet = false;
+	private boolean isPrecisionSet = false;
+	
 	private int length = DEFAULT_LENGTH;
 	private int precision = DEFAULT_PRECISION;
 	private int scale = DEFAULT_SCALE;
@@ -305,6 +308,7 @@ public class Column implements Selectable, Serializable, Cloneable {
 	}
 
 	public void setPrecision(int scale) {
+		setPrecisionSet(true);
 		this.precision = scale;
 	}
 
@@ -313,7 +317,9 @@ public class Column implements Selectable, Serializable, Cloneable {
 	}
 
 	public void setScale(int scale) {
+		setScaleSet(true);
 		this.scale = scale;
+		
 	}
 
 	public String getComment() {
@@ -351,6 +357,8 @@ public class Column implements Selectable, Serializable, Cloneable {
 	public String getCanonicalName() {
 		return quoted ? name : name.toLowerCase( Locale.ROOT );
 	}
+	
+	
 
 	/**
 	 * Shallow copy, the value is not copied
@@ -376,5 +384,23 @@ public class Column implements Selectable, Serializable, Cloneable {
 		copy.setCustomWrite( customWrite );
 		return copy;
 	}
+
+	public boolean isScaleSet() {
+		return isScaleSet;
+	}
+
+	public void setScaleSet(boolean isScaleSet) {
+		this.isScaleSet = isScaleSet;
+	}
+
+	public boolean isPrecisionSet() {
+		return isPrecisionSet;
+	}
+
+	public void setPrecisionSet(boolean isPrecisionSet) {
+		this.isPrecisionSet = isPrecisionSet;
+	}
+
+	
 
 }
