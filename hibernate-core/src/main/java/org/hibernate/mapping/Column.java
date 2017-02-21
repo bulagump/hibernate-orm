@@ -28,9 +28,9 @@ public class Column implements Selectable, Serializable, Cloneable {
 	public static final int DEFAULT_PRECISION = 19;
 	public static final int DEFAULT_SCALE = 2;
 
-	private boolean isScaleSet = false;
-	private boolean isPrecisionSet = false;
-	
+	private boolean isScaleSet;
+	private boolean isPrecisionSet;
+	private boolean isLengthSet;
 	private int length = DEFAULT_LENGTH;
 	private int precision = DEFAULT_PRECISION;
 	private int scale = DEFAULT_SCALE;
@@ -61,6 +61,7 @@ public class Column implements Selectable, Serializable, Cloneable {
 	}
 
 	public void setLength(int length) {
+		setLengthSet(true);
 		this.length = length;
 	}
 
@@ -358,6 +359,30 @@ public class Column implements Selectable, Serializable, Cloneable {
 		return quoted ? name : name.toLowerCase( Locale.ROOT );
 	}
 	
+	public boolean isScaleSet() {
+		return isScaleSet;
+	}
+
+	public void setScaleSet(boolean isScaleSet) {
+		this.isScaleSet = isScaleSet;
+	}
+
+	public boolean isPrecisionSet() {
+		return isPrecisionSet;
+	}
+
+	public void setPrecisionSet(boolean isPrecisionSet) {
+		this.isPrecisionSet = isPrecisionSet;
+	}
+
+	public boolean isLengthSet() {
+		return isLengthSet;
+	}
+
+	public void setLengthSet(boolean isLengthSet) {
+		this.isLengthSet = isLengthSet;
+	}
+	
 	
 
 	/**
@@ -382,23 +407,10 @@ public class Column implements Selectable, Serializable, Cloneable {
 		copy.setDefaultValue( defaultValue );
 		copy.setCustomRead( customRead );
 		copy.setCustomWrite( customWrite );
+		copy.setScaleSet( isScaleSet );
+		copy.setPrecisionSet( isPrecisionSet );
+		copy.setLengthSet( isLengthSet );
 		return copy;
-	}
-
-	public boolean isScaleSet() {
-		return isScaleSet;
-	}
-
-	public void setScaleSet(boolean isScaleSet) {
-		this.isScaleSet = isScaleSet;
-	}
-
-	public boolean isPrecisionSet() {
-		return isPrecisionSet;
-	}
-
-	public void setPrecisionSet(boolean isPrecisionSet) {
-		this.isPrecisionSet = isPrecisionSet;
 	}
 
 	
